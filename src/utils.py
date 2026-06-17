@@ -392,7 +392,7 @@ def aplicar_descuento(valor, pago_voluntario):
         valor_con_descuento = valor - descuento
         return valor_con_descuento
     else:
-        return valor
+        return valor    
 
 def asignar_prioridad(valor, tiene_historial_incumplimiento):
     """
@@ -420,7 +420,6 @@ def asignar_prioridad(valor, tiene_historial_incumplimiento):
     #    - de lo contrario: retorna "BAJA"
     valor_alto = valor > 1_000_000
     tiene_historial = tiene_historial_incumplimiento
-    
     if valor_alto and tiene_historial:
         return "ALTA"
     elif valor_alto or tiene_historial:
@@ -654,7 +653,12 @@ def imprimir_nits_validos(nits):
     #    - Llama a validar_nit(nit)
     #    - Si es válido: imprime "  {contador}. {nit}"
     #      e incrementa: contador = contador + 1
-    pass
+    print("NITs válidos:")
+    contador = 1
+    for nit in nits:
+        if validar_nit(nit):
+            print(f"  {contador}. {nit}")
+            contador = contador + 1
 
 
 def calcular_totales(valores):
@@ -684,7 +688,14 @@ def calcular_totales(valores):
     #    - Actualiza el máximo: si valor > maximo, haz maximo = valor
     # 4. Calcula el promedio: promedio = total / len(valores)
     # 5. Retorna total, promedio, maximo (los tres en esa línea)
-    pass
+    total = 0
+    maximo = valores[0]
+    for valor in valores:
+        total = total + valor
+        if valor > maximo:
+            maximo = valor
+    promedio = total / len(valores)
+    return total, promedio, maximo
 
 
 def generar_periodos_multiple(anio_inicio, anio_fin, meses_por_anio=12):
